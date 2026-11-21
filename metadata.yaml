@@ -15,7 +15,7 @@ desc: |
 
   原本只是给自家肥鱼用的，能聊梗也能答出处。至少我自己测下来没什么问题，
   你们用着有毛病就来说。
-version: 1.0.0
+version: 1.0.1
 author: susuxiang111
 repo: https://github.com/susuxiang111/astrbot_plugin_dafeiyu_xsg
 astrbot_version: ">=4.16"

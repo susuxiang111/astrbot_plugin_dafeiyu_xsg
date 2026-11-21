@@ -25,6 +25,7 @@ from typing import Any
 from astrbot.api import logger
 from astrbot.api.event import AstrMessageEvent, filter
 from astrbot.api.star import Context, Star, register
+from astrbot.core.agent.message import TextPart
 from astrbot.core.config.astrbot_config import AstrBotConfig
 
 NAME = "astrbot_plugin_dafeiyu_xsg"
@@ -221,7 +222,7 @@ def render_context(entries: list[dict[str, Any]], ask_detail: bool) -> str:
     return RULES + "\n\n[用户这轮提到的梗]\n" + "\n\n".join(blocks)
 
 
-@register(NAME, "susuxiang111", "新三国梗百科：143 条新三国与折棒系梗，三层出处分得清，说人话就能查。", "1.0.0")
+@register(NAME, "susuxiang111", "新三国梗百科：143 条新三国与折棒系梗，三层出处分得清，说人话就能查。", "1.0.1")
 class DafeiyuXsg(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
@@ -330,10 +331,10 @@ class DafeiyuXsg(Star):
         if DETAIL_FOLLOWUP.fullmatch(text.strip()):
             entry = self._recall(event)
             if entry is not None:
-                req.system_prompt = (req.system_prompt or "") + "\n\n" + (
+                self._inject(req, (
                     "[用户要上一个梗的详情，按这个讲：]\n"
                     + render_card(entry, detail=True)
-                )
+                ))
                 logger.info(f"[{NAME}] 追加上一个梗详情：{entry['name']}")
             return
 
@@ -342,8 +343,18 @@ class DafeiyuXsg(Star):
             return
         self._remember(event, hits[0])
         ask_detail = bool(DETAIL_ASK.search(text))
-        req.system_prompt = (req.system_prompt or "") + "\n\n" + render_context(hits, ask_detail)
+        self._inject(req, render_context(hits, ask_detail))
         logger.info(f"[{NAME}] 命中 {len(hits)} 条：{[h['name'] for h in hits]}")
+
+    @staticmethod
+    def _inject(req, content: str) -> None:
+        """把梗上下文作为临时用户内容注入。
+
+        不写 req.system_prompt：系统提示词必须固定，逐请求改写会让多轮对话
+        的上下文缓存全部失效。这里用 extra_user_content_parts + mark_as_temp()
+        注入，只对本次 provider 请求可见，不会落进历史。
+        """
+        req.extra_user_content_parts.append(TextPart(text=content).mark_as_temp())
 
     # ---------- LLM 工具 ----------
 
