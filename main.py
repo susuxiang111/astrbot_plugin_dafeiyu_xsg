@@ -221,7 +221,7 @@ def render_context(entries: list[dict[str, Any]], ask_detail: bool) -> str:
     return RULES + "\n\n[用户这轮提到的梗]\n" + "\n\n".join(blocks)
 
 
-@register(NAME, "dafeiyu", "新三国梗百科：143 条新三国与折棒系梗，三层出处分得清，说人话就能查。", "1.0.0")
+@register(NAME, "susuxiang111", "新三国梗百科：143 条新三国与折棒系梗，三层出处分得清，说人话就能查。", "1.0.0")
 class DafeiyuXsg(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
