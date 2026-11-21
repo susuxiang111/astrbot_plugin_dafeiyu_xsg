@@ -1,0 +1,17 @@
+{
+  "auto_recognize": {
+    "type": "bool",
+    "description": "自动识别聊天里的新三国梗并接入上下文",
+    "default": true
+  },
+  "natural_lookup": {
+    "type": "bool",
+    "description": "自然语言问梗时直接回卡片（不用打 /，说「XX 是什么梗」就行）",
+    "default": true
+  },
+  "group_need_trigger": {
+    "type": "bool",
+    "description": "群聊里只在被 @、被回复或带触发词时才接梗（防刷屏）",
+    "default": true
+  }
+}

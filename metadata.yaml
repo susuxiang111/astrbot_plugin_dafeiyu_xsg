@@ -1,0 +1,25 @@
+name: astrbot_plugin_dafeiyu_xsg
+display_name: 新三国梗（折棒系）
+short_desc: 认得 2010 版《新三国》和 B 站折棒吐槽系列的三层梗，不用打命令也能接能查。
+desc: |
+  只认 2010 年电视剧《新三国》（高希希执导）衍生的梗，以及 B 站 UP 主「吃蛋挞的折棒」
+  《吐槽新三国》系列的二创梗与评论区梗。内置 143 条，按三个来源层级严格区分出处。
+
+  - 原剧梗：直接来自剧中台词/名场面，能查到角色和集数
+  - 折棒体系梗：折棒在吐槽里总结的机制（天意、窃听机制、曹氏兵法、灵魂锁链等）
+  - 评论区梗：折棒系列评论区发展出来的固定反应
+
+  功能：自然语言问梗直接出卡片、顺口提到梗时自动接话、群聊防刷屏、多轮追问、
+  LLM 工具自动查。不需要任何 API key，纯本地匹配。
+version: 1.0.0
+author: dafeiyu
+repo: https://github.com/susuxiang111/astrbot_plugin_dafeiyu_xsg
+astrbot_version: ">=4.16"
+support_platforms:
+  - aiocqhttp
+tags:
+  - 梗百科
+  - 新三国
+  - 折棒
+  - 影视梗
+  - 二创
